@@ -10,11 +10,35 @@ function convertToRoman(num) {
     };
 
   //your code here
+	let result = '';
+
+    for (let key in obj) {
+        while (num >= obj[key][1]) {
+            result += obj[key][0];
+            num -= obj[key][1];
+        }
+
+        // Check for subtractive notation (e.g., IV, XL, XC)
+        if (key % 2 === 0 && key < 6) {
+            let nextKey = parseInt(key) + 2;
+            let nextSymbol = obj[nextKey][0];
+
+            if (
+                num >= obj[key][1] - obj[nextKey][1] &&
+                num < obj[key][1]
+            ) {
+                result += nextSymbol + obj[key][0];
+                num -= obj[key][1] - obj[nextKey][1];
+            }
+        }
+    }
+
+    return result;
 
 }
 // You can test your code by running the above function and printing it to console by pressing the run button at the top. To run it with input 36, uncomment the following line
 
-// console.log(convertToRoman(36));
+ console.log(convertToRoman(36));
 
 
 
